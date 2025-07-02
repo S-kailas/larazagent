@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Laraz Autotech</title>
   <style>
-    /* Your styling remains unchanged */
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -192,7 +191,7 @@
       <label for="register">Registration No</label>
       <input type="text" id="register" name="register" />
 
-      <button type="submit">Submit</button>
+      <button type="submit" id="submitBtn">Submit</button>
     </form>
   </div>
 
@@ -204,6 +203,11 @@
       if (!validateMobile()) return false;
 
       const form = document.getElementById("larazForm");
+      const submitBtn = document.getElementById("submitBtn");
+
+      // Disable button & show feedback
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitting...";
 
       const formData = new URLSearchParams();
       formData.append("name", form.name.value);
@@ -226,10 +230,14 @@
         } else {
           alert("Error: " + result.error);
         }
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit";
       })
       .catch(err => {
         console.error("Error:", err);
         alert("Submission failed.");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit";
       });
 
       return false;
