@@ -1,31 +1,141 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Agent Login</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Associate Login</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ff0000, #ff4d4d);
+      color: white;
+    }
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: white;
+      padding: 8px 14px;
+      border-radius: 15px;
+      margin: 20px auto 15px auto;
+      max-width: 300px;
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+    }
+    .logo-section {
+      display: flex;
+      align-items: center;
+    }
+    .logo-section img {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 8px;
+      border: 2px solid #ff0000;
+      background: #fff;
+    }
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .logo-text span {
+      font-size: 0.75em;
+      font-weight: bold;
+      color: red;
+    }
+    .logo-text small {
+      font-size: 0.65em;
+      color: #555;
+    }
+    .container {
+      max-width: 290px;
+      margin: 10px auto;
+      background-color: white;
+      color: #333;
+      padding: 16px;
+      border-radius: 15px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+    }
+    h2 {
+      text-align: center;
+      color: black;
+      font-size: 0.95em;
+      margin-bottom: 10px;
+    }
+    label {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: bold;
+      font-size: 0.75em;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 7px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 0.75em;
+    }
+    button[type="submit"] {
+      width: 100%;
+      padding: 9px;
+      font-size: 0.8em;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: #ff0000;
+      color: white;
+    }
+    button[type="submit"]:hover {
+      opacity: 0.9;
+    }
+    #error {
+      font-size: 0.75em;
+      text-align: center;
+      margin-top: 6px;
+    }
+  </style>
 </head>
 <body>
-  <h2>Agent Access</h2>
-  <form onsubmit="checkAgentId(event)">
-    <label for="agentid">Assosciate ID:</label>
-    <input type="text" id="agentid" required />
-    <button type="submit">Enter</button>
-  </form>
-  <p id="error" style="color: red;"></p>
+
+  <nav class="navbar">
+    <div class="logo-section">
+      <img src="logo.jpg" alt="Laraz Autotech Logo" />
+      <div class="logo-text">
+        <span>Laraz Autotech VOC</span>
+        <small>Kottarakkara</small>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>Associate Access</h2>
+    <h2>Refer a customer and earn cash</h2>
+
+    <form onsubmit="checkAgentId(event)">
+      <label for="agentid">Associate ID:</label>
+      <input type="text" id="agentid" required />
+      <button type="submit">Enter</button>
+    </form>
+    <p id="error" style="color: red;"></p>
+  </div>
 
   <script>
-    const validAgents = ["agent1", "agent2", "agent3"]; // You can change/add
+    const validAgents = ["EACF", "MQRT", "GUST"]; // Update as needed
 
     function checkAgentId(event) {
       event.preventDefault();
       const enteredId = document.getElementById("agentid").value.trim();
 
       if (validAgents.includes(enteredId)) {
-        // Redirect with agentid in URL
         window.location.href = `index.html?agentid=${encodeURIComponent(enteredId)}`;
       } else {
         document.getElementById("error").textContent = "Invalid Agent ID.";
       }
     }
   </script>
+
 </body>
 </html>
