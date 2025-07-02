@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Laraz Autotech Associate Acces</title>
+  <title>Laraz Autotech Associate Access</title>
   <style>
     body {
       margin: 0;
@@ -49,21 +49,6 @@
       font-size: 0.65em;
       color: #555;
     }
-    .contact-number {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .contact-number img {
-      width: 16px;
-      height: 16px;
-    }
-    .contact-number a {
-      font-weight: bold;
-      color: #ff0000;
-      font-size: 0.8em;
-      text-decoration: none;
-    }
     .container {
       max-width: 290px;
       margin: 10px auto;
@@ -80,13 +65,6 @@
       font-weight: bold;
       font-size: 0.9em;
       line-height: 1.4;
-    }
-    .zero-text {
-      color: red;
-      font-size: 1.2em;
-      font-family: 'Impact', 'Segoe UI Black', sans-serif;
-      letter-spacing: 1px;
-      text-shadow: 1px 1px 2px rgba(255, 0, 0, 0.4);
     }
     h3 {
       color: black;
@@ -150,10 +128,7 @@
   </nav>
 
   <div class="container">
-    <h2 class="offer-heading">
-      Associate Acces
-      
-    </h2>
+    <h2 class="offer-heading">Associate Access</h2>
 
     <form id="larazForm" onsubmit="return submitToSheet(event)">
       <label for="name">Name</label>
@@ -190,17 +165,17 @@
       <label for="register">Registration No</label>
       <input type="text" id="register" name="register" />
 
-      <!-- ✅ Hidden field for agent ID -->
+      <!-- Hidden agent ID field -->
       <input type="hidden" id="agentid" name="agentid" />
 
-      <button type="submit">Submit</button>
+      <button type="submit" id="submitBtn">Submit</button>
     </form>
   </div>
 
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbxiQ6kwzq_kdTzl1T8_arnU_Chg8neIw3329OA_pZSMiZtNNx3sYRunhjmkofkhxuDONQ/exec"; // ← update this with your script URL
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxiQ6kwzq_kdTzl1T8_arnU_Chg8neIw3329OA_pZSMiZtNNx3sYRunhjmkofkhxuDONQ/exec";
 
-    // ✅ Read agent ID from URL and insert into hidden field
+    // Set agent ID if present in URL
     const urlParams = new URLSearchParams(window.location.search);
     const agentid = urlParams.get('agentid');
     if (agentid) {
@@ -212,6 +187,11 @@
       if (!validateMobile()) return false;
 
       const form = document.getElementById("larazForm");
+      const submitBtn = document.getElementById("submitBtn");
+
+      // Disable and show temp success
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitting...";
 
       const formData = new URLSearchParams();
       formData.append("name", form.name.value);
@@ -220,7 +200,7 @@
       formData.append("company", form.company.value);
       formData.append("model", form.model.value);
       formData.append("register", form.register.value);
-      formData.append("agentid", form.agentid.value); // ✅ include agentid
+      formData.append("agentid", form.agentid.value);
 
       fetch(scriptURL, {
         method: "POST",
@@ -235,10 +215,14 @@
         } else {
           alert("Error: " + result.error);
         }
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit";
       })
       .catch(err => {
         console.error("Error:", err);
         alert("Submission failed.");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit";
       });
 
       return false;
