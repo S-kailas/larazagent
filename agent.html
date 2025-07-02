@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Agent Login</title>
+</head>
+<body>
+  <h2>Agent Access</h2>
+  <form onsubmit="checkAgentId(event)">
+    <label for="agentid">Enter Agent ID:</label>
+    <input type="text" id="agentid" required />
+    <button type="submit">Enter</button>
+  </form>
+  <p id="error" style="color: red;"></p>
+
+  <script>
+    const validAgents = ["agent1", "agent2", "agent3"]; // You can change/add
+
+    function checkAgentId(event) {
+      event.preventDefault();
+      const enteredId = document.getElementById("agentid").value.trim();
+
+      if (validAgents.includes(enteredId)) {
+        // Redirect with agentid in URL
+        window.location.href = `index.html?agentid=${encodeURIComponent(enteredId)}`;
+      } else {
+        document.getElementById("error").textContent = "Invalid Agent ID.";
+      }
+    }
+  </script>
+</body>
+</html>
